@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
   // Change port 8000 if your backend runs on a different port
-  baseURL: 'https://project-camp-backend-tvm4.onrender.com/',
+  baseURL: 'https://project-camp-backend-tvm4.onrender.com/api/v1',
   withCredentials: true,
 });
 
