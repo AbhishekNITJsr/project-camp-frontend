@@ -1,8 +1,13 @@
 // File: src/components/Landing.jsx
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ShieldCheck, CheckCircle2, FolderGit2, FileText, ArrowRight } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 export default function Landing() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
   const features = [
     {
       icon: <ShieldCheck className="h-6 w-6 text-indigo-600" />,
@@ -26,6 +31,20 @@ export default function Landing() {
     }
   ];
 
+  // Smart routing based on authentication status
+  const handleLaunchClick = () => {
+    if (user) {
+      navigate('/dashboard');
+    } else {
+      navigate('/register');
+    }
+  };
+
+  const handleDocsClick = () => {
+    // Replace this URL with your actual backend GitHub repository link
+    window.open('https://github.com/AbhishekNITJsr/project-camp-backend', '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Hero Section */}
@@ -43,11 +62,17 @@ export default function Landing() {
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
-          <button className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 text-base font-semibold text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition-all">
+          <button 
+            onClick={handleLaunchClick}
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 text-base font-semibold text-white bg-indigo-600 rounded-xl hover:bg-indigo-700 shadow-lg shadow-indigo-200 transition-all"
+          >
             Launch Workspace
             <ArrowRight className="h-5 w-5" />
           </button>
-          <button className="w-full sm:w-auto px-8 py-3.5 text-base font-semibold text-slate-700 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 transition-all">
+          <button 
+            onClick={handleDocsClick}
+            className="w-full sm:w-auto px-8 py-3.5 text-base font-semibold text-slate-700 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 transition-all"
+          >
             Explore API Docs
           </button>
         </div>
